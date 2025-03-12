@@ -3,81 +3,250 @@
 @section('title', 'Home')
 
 @section('content')
-    <!-- HERO SECTION -->
-    <section class="bg-blue-50 py-12">
-        <div class="container mx-auto px-4 text-center">
-            <h1 class="text-4xl font-bold text-gray-800">Selamat Datang di Website Kami</h1>
-            <p class="mt-4 text-lg text-gray-600">
-                Temukan produk terbaik dengan kualitas unggul dan penawaran menarik.
-            </p>
-            <a href="{{ route('etalase') }}" class="mt-6 inline-block bg-blue-500 hover:bg-blue-600 text-white py-2 px-6 rounded">
-                Lihat Etalase
-            </a>
-        </div>
-    </section>
+<!-- Impor Font Rock Salt -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap" rel="stylesheet">
 
-    <!-- FEATURED PRODUCTS SECTION -->
-    <section class="py-12">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-gray-800 text-center mb-8">Produk Unggulan</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Contoh Kartu Produk (bisa dikembangkan) -->
-                <div class="bg-white rounded-lg shadow p-4">
-                    <img src="https://via.placeholder.com/300x200" alt="Produk 1" class="w-full h-40 object-cover rounded">
-                    <h3 class="mt-4 text-xl font-semibold text-gray-800">Produk 1</h3>
-                    <p class="mt-2 text-gray-600">Deskripsi singkat produk.</p>
-                    <span class="block mt-2 font-bold text-blue-500">Rp100.000</span>
-                </div>
-                <div class="bg-white rounded-lg shadow p-4">
-                    <img src="https://via.placeholder.com/300x200" alt="Produk 2" class="w-full h-40 object-cover rounded">
-                    <h3 class="mt-4 text-xl font-semibold text-gray-800">Produk 2</h3>
-                    <p class="mt-2 text-gray-600">Deskripsi singkat produk.</p>
-                    <span class="block mt-2 font-bold text-blue-500">Rp200.000</span>
-                </div>
-                <div class="bg-white rounded-lg shadow p-4">
-                    <img src="https://via.placeholder.com/300x200" alt="Produk 3" class="w-full h-40 object-cover rounded">
-                    <h3 class="mt-4 text-xl font-semibold text-gray-800">Produk 3</h3>
-                    <p class="mt-2 text-gray-600">Deskripsi singkat produk.</p>
-                    <span class="block mt-2 font-bold text-blue-500">Rp150.000</span>
-                </div>
-                <div class="bg-white rounded-lg shadow p-4">
-                    <img src="https://via.placeholder.com/300x200" alt="Produk 4" class="w-full h-40 object-cover rounded">
-                    <h3 class="mt-4 text-xl font-semibold text-gray-800">Produk 4</h3>
-                    <p class="mt-2 text-gray-600">Deskripsi singkat produk.</p>
-                    <span class="block mt-2 font-bold text-blue-500">Rp250.000</span>
-                </div>
-            </div>
-            <div class="text-center mt-8">
-                <a href="{{ route('etalase') }}" class="inline-block bg-blue-500 hover:bg-blue-600 text-white py-2 px-6 rounded">
-                    Lihat Semua Produk
-                </a>
-            </div>
-        </div>
-    </section>
+<!-- Custom Style -->
+<style>
+  /* Animasi Best Seller */
+  .heading-aesthetic {
+    font-family: '', ;
+    font-size: 2rem;
+    color: white;
+    
+    transform: scale(0.8);
+    position: relative;
+    z-index: 10;
+  }
 
-    <!-- ABOUT / WHY CHOOSE US SECTION -->
-    <section class="bg-gray-100 py-12">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-3xl font-bold text-gray-800 mb-4">Kenapa Memilih Kami?</h2>
-            <div class="flex flex-col md:flex-row justify-center items-center gap-8">
-                <div class="flex flex-col items-center">
-                    <span class="text-4xl">🚚</span>
-                    <p class="mt-2 text-gray-600">Gratis Ongkir</p>
-                </div>
-                <div class="flex flex-col items-center">
-                    <span class="text-4xl">⭐</span>
-                    <p class="mt-2 text-gray-600">Produk Terbaik</p>
-                </div>
-                <div class="flex flex-col items-center">
-                    <span class="text-4xl">💰</span>
-                    <p class="mt-2 text-gray-600">Harga Terjangkau</p>
+  /* Canvas untuk bintang */
+  #starsCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* Wrapper untuk kontras */
+  .content-wrapper {
+  position: relative;
+  z-index: 5;
+ 
+  padding: 50px 0;
+}
+
+#logo {
+    opacity: 0;
+    filter: blur(10px); /* Tambahkan efek blur awal */
+    transform: scale(0.9);
+}
+
+
+
+
+
+  /* Animasi Fade */
+  .fade {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .fade.active {
+    opacity: 1;
+    transform: scale(1);
+  }
+</style>
+
+<!-- Canvas untuk bintang -->
+<canvas id="starsCanvas"></canvas>
+
+<!-- HERO SECTION -->
+<section class="py-12 text-white text-center content-wrapper">
+    <div class="container mx-auto px-4">
+        <!-- Logo & Nama Brand -->
+        <img id="logo" src="images/yonopedia.png" alt="Yonowatch Logo" class="mx-auto mb-4 w-40 opacity-0 blur-md"> 
+        
+        <h1 id="brandName" class="text-5xl font-bold tracking-wide opacity-0 scale-75" style="font-family: 'Montserrat', sans-serif;">
+            YONOWATCH
+        </h1>
+        
+        <p id="tagline" class="mt-2 text-lg text-gray-300 italic opacity-0 translate-y-10">
+            Your Only Watch Retailer
+        </p>
+    </div>
+</section>
+
+
+<!-- BEST SELLER PRODUCT SECTION -->
+<section class="relative py-16 text-center content-wrapper">
+    <div class="container mx-auto px-4">
+        <!-- Animasi Heading -->
+        <h2 class="heading-aesthetic font-bold mb-8" id="bestSellerText" style="color: #d45630;">OUR BEST SELLER</h2>
+
+        <!-- Produk Slider -->
+        <div class="relative flex justify-center items-center">
+            <button id="prevBtn" class="absolute left-100 text-white bg-black bg-opacity-50 p-3 rounded-full 
+    hover:bg-opacity-70 hover:scale-110 hover:bg-gray-800 transition duration-300 ease-in-out">
+    ❮
+</button>
+
+            <div id="productDisplay" class="relative w-3/4 max-w-2xl h-96 flex items-center justify-center overflow-hidden">
+                <img id="productImage" class="w-full max-h-full object-contain fade active">
+                <div id="productInfo" class="absolute bottom-2 bg-black bg-opacity-50 px-6 py-3 rounded-lg">
+                    <h3 class="text-2xl font-semibold text-white" id="productTitle" style="color: #ff5722;"></h3>
+                    <p class="text-lg text-gray-300" id="productDesc"></p>
+                    <span class="text-xl font-bold text-yellow-400" id="productPrice"></span>
                 </div>
             </div>
+            
+            
+
+            <button id="nextBtn" class="absolute right-100 text-white bg-black bg-opacity-50 p-3 rounded-full 
+    hover:bg-opacity-70 hover:scale-110 hover:bg-gray-800 transition duration-300 ease-in-out">
+    ❯
+</button>
         </div>
-    </section>
+    </div>
+</section>
+
 @endsection
-
 
 @php
     $activePage = 'home';
 @endphp
+
+<!-- GSAP + Three.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    /** DATA PRODUK **/
+    const products = [
+        { image: "{{ asset('images/jam2.png') }}", title: "Produk 1", desc: "", price: "" },
+        { image: "{{ asset('images/jam1.png') }}", title: "Produk 2", desc: "", price: "" },
+        { image: "{{ asset('images/jam3.png') }}", title: "Produk 3", desc: "", price: "" }
+    ];
+
+    let currentIndex = 0;
+    const productImage = document.getElementById("productImage");
+    const productTitle = document.getElementById("productTitle");
+    const productDesc = document.getElementById("productDesc");
+    const productPrice = document.getElementById("productPrice");
+    
+    function updateProduct() {
+        productImage.classList.remove("active"); // Hapus efek aktif
+        setTimeout(() => {
+            productImage.src = products[currentIndex].image;
+            productTitle.innerText = products[currentIndex].title;
+            productDesc.innerText = products[currentIndex].desc;
+            productPrice.innerText = products[currentIndex].price;
+            productImage.classList.add("active"); // Tambahkan efek aktif
+        }, 400);
+    }
+    
+    document.getElementById("nextBtn").addEventListener("click", () => {
+        currentIndex = (currentIndex + 1) % products.length;
+        updateProduct();
+    });
+
+    document.getElementById("prevBtn").addEventListener("click", () => {
+        currentIndex = (currentIndex - 1 + products.length) % products.length;
+        updateProduct();
+    });
+
+    updateProduct(); // Set produk pertama saat halaman dimuat
+
+
+    gsap.to("#bestSellerText", {
+        opacity: 1,
+        scale: 1.4,
+        duration: 4,
+        ease: "power2.out"
+    });
+
+    gsap.timeline()
+        .to("#logo", { 
+            opacity: 1, 
+            filter: "blur(0px)", /* Hapus blur secara bertahap */
+
+            duration: 1.5, 
+            ease: "power3.out" 
+        })
+        .to("#brandName", { 
+            opacity: 1, 
+            scale: 1, 
+            duration: 1.2, 
+            ease: "elastic.out(1, 0.5)" 
+        }, "-=1")
+        .to("#tagline", { 
+            opacity: 1, 
+            y: 0, 
+            duration: 1, 
+            ease: "power2.out" 
+        }, "-=0.8");
+    /** KONFIGURASI THREE.JS BINTANG 3D **/
+    let scene, camera, renderer, stars, starGeo;
+
+    function init() {
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
+        camera.position.z = 500;
+
+        renderer = new THREE.WebGLRenderer({ canvas: document.getElementById("starsCanvas"), alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        starGeo = new THREE.BufferGeometry();
+        let vertices = [];
+
+        for (let i = 0; i < 2000; i++) {
+            let x = (Math.random() - 0.5) * 2000;
+            let y = (Math.random() - 0.5) * 2000;
+            let z = (Math.random() - 0.5) * 2000;
+            vertices.push(x, y, z);
+        }
+
+        starGeo.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+
+        let starMaterial = new THREE.PointsMaterial({
+            color: 0xffffff,
+            size: 2,
+            sizeAttenuation: true
+        });
+
+        stars = new THREE.Points(starGeo, starMaterial);
+        scene.add(stars);
+    }
+
+    function animate() {
+        requestAnimationFrame(animate);
+        stars.rotation.y += 0.0005;
+        stars.rotation.x += 0.0002;
+        renderer.render(scene, camera);
+    }
+
+    function onScroll() {
+        let scrollY = window.scrollY;
+        stars.position.z = scrollY * -0.5;
+    }
+
+    window.addEventListener("resize", () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    window.addEventListener("scroll", onScroll);
+
+    init();
+    animate();
+});
+
+
+</script>
+
