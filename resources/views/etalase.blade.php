@@ -205,20 +205,94 @@ function catalogApp() {
   return {
     // Sidebar toggle state
     sidebarOpen: true,
+    
     // List kategori
-    categories: ['Elektronik', 'Fashion', 'Gadget', 'Home Appliance'],
-    activeCategory: 'Elektronik',
+    categories: ['Luxury Watch', 'Super Luxury Watch'],
+    activeCategory: 'Luxury Watch',
     
-    // Data produk statis (masing-masing produk memiliki properti kategori)
+    // Data produk statis
     products: [
-      { id: 1, name: 'Smartphone XYZ', price: 'Rp 3.000.000', image: 'images/jam1.png', description: 'Smartphone XYZ dengan fitur canggih.', category: 'Elektronik' },
-      { id: 2, name: 'Laptop ABC', price: 'Rp 7.000.000', image: 'https://via.placeholder.com/300x200', description: 'Laptop ABC untuk produktivitas tinggi.', category: 'Elektronik' },
-      { id: 3, name: 'Sneakers Trendy', price: 'Rp 500.000', image: 'https://via.placeholder.com/300x200', description: 'Sneakers Trendy nyaman dipakai sehari-hari.', category: 'Fashion' },
-      { id: 4, name: 'Smartwatch Z', price: 'Rp 1.200.000', image: 'https://via.placeholder.com/300x200', description: 'Smartwatch Z untuk gaya hidup modern.', category: 'Gadget' },
-      { id: 5, name: 'Refrigerator X', price: 'Rp 3.500.000', image: 'https://via.placeholder.com/300x200', description: 'Refrigerator X dengan kapasitas besar.', category: 'Home Appliance' },
-      { id: 6, name: 'T-Shirt Casual', price: 'Rp 150.000', image: 'https://via.placeholder.com/300x200', description: 'T-Shirt Casual yang nyaman dan stylish.', category: 'Fashion' },
+      {
+        id: 1,
+        name: 'Rolex Daytona',
+        price: 'Rp 750.000.000',
+        image: 'https://media.rolex.com/image/upload/q_auto:eco/f_auto/t_v7-majesty/c_limit,w_3840/v1/catalogue/2024/upright-c/m126500ln-0001',
+        description: 'The Rolex Daytona is an iconic chronograph watch known for its high precision and timeless design.',
+        category: 'Luxury Watch'
+      },
+      {
+        id: 2,
+        name: 'Patek Philippe Nautilus',
+        price: 'Rp 1.200.000.000',
+        image: 'https://w7.pngwing.com/pngs/363/98/png-transparent-audemars-piguet-royal-oak-offshore-chronograph-watch-audemars-piguet-royal-oak-selfwinding-watch-watch-accessory-accessories-steel.png',
+        description: 'The Patek Philippe Nautilus is a legendary luxury sports watch with an elegant and sophisticated design.',
+        category: 'Super Luxury Watch'
+      },
+      {
+        id: 3,
+        name: 'Audemars Piguet Royal Oak',
+        price: 'Rp 900.000.000',
+        image: 'https://via.placeholder.com/300x200',
+        description: 'The Audemars Piguet Royal Oak features an iconic octagonal bezel and an ultra-refined high-end design.',
+        category: 'Luxury Watch'
+      },
+      {
+        id: 4,
+        name: 'Richard Mille RM 11-03',
+        price: 'Rp 2.500.000.000',
+        image: 'https://via.placeholder.com/300x200',
+        description: 'The Richard Mille RM 11-03 is an ultra-luxury watch with cutting-edge technology and high-tech materials.',
+        category: 'Super Luxury Watch'
+      },
+      {
+        id: 5,
+        name: 'Vacheron Constantin Overseas',
+        price: 'Rp 800.000.000',
+        image: 'https://via.placeholder.com/300x200',
+        description: 'The Vacheron Constantin Overseas is a masterpiece of fine watchmaking with exceptional precision.',
+        category: 'Luxury Watch'
+      },
+      {
+        id: 6,
+        name: 'Hublot Big Bang Unico',
+        price: 'Rp 500.000.000',
+        image: 'https://via.placeholder.com/300x200',
+        description: 'The Hublot Big Bang Unico stands out with its bold, futuristic design and innovative movement.',
+        category: 'Luxury Watch'
+      },
+      {
+        id: 7,
+        name: 'Omega Speedmaster Moonwatch',
+        price: 'Rp 350.000.000',
+        image: 'https://via.placeholder.com/300x200',
+        description: 'The Omega Speedmaster Moonwatch is a legendary timepiece, famous for being worn on the Moon.',
+        category: 'Luxury Watch'
+      },
+      {
+        id: 8,
+        name: 'Jaeger-LeCoultre Reverso',
+        price: 'Rp 450.000.000',
+        image: 'https://via.placeholder.com/300x200',
+        description: 'The Jaeger-LeCoultre Reverso is a classic watch featuring a unique reversible case for elegance and versatility.',
+        category: 'Luxury Watch'
+      },
+      {
+        id: 9,
+        name: 'Breguet Classique 5177',
+        price: 'Rp 1.000.000.000',
+        image: 'https://via.placeholder.com/300x200',
+        description: 'The Breguet Classique 5177 showcases timeless craftsmanship with a refined and elegant design.',
+        category: 'Luxury Watch'
+      },
+      {
+        id: 10,
+        name: 'A. Lange & Söhne Lange 1',
+        price: 'Rp 1.100.000.000',
+        image: 'https://via.placeholder.com/300x200',
+        description: 'The A. Lange & Söhne Lange 1 is a symbol of German precision and classic watchmaking artistry.',
+        category: 'Super Luxury Watch'
+      }
     ],
-    
     // Data keranjang: sekarang menyimpan item sebagai objek dengan properti 'quantity'
     cart: [],
     cartCount: 0,

@@ -26,7 +26,7 @@
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="{{route ('home')}}" class="flex items-center space-x-3 rtl:space-x-reverse">
             <img src="{{asset('images/yonopedia.png')}}" class="h-15" alt="Yonopedia Logo" />
-            <span class="self-center text-2xl font-semibold text-white">Yonopedia</span>
+            <span class="self-center text-2xl font-semibold text-white">Yonowatch</span>
         </a>
         <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-400 rounded-lg md:hidden hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500">
             <span class="sr-only">Open main menu</span>
@@ -35,7 +35,7 @@
             </svg>
         </button>
         <div class="hidden w-full md:block md:w-auto" id="navbar-default">
-            <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-700 rounded-lg bg-gray-800 md:flex-row md:space-x-2 rtl:space-x-reverse md:mt-0 md:border-0">
+            <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-700 rounded-lg bg-gray-800 md:flex-row md:space-x-1 rtl:space-x-reverse md:mt-0 md:border-0">
                 <li>
                     <a href="{{route ('home')}}" class="block py-2 px-3 text-white hover:bg-gray-700 rounded-md transition {{$activePage === 'home' ? 'bg-gray-700' : ''}}" aria-current="page">Home</a>
                 </li>
@@ -59,7 +59,7 @@
         <div class="sm:flex sm:items-center sm:justify-between">
             <a href="{{route ('home')}}" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
                 <img src="{{asset('images/yonopedia.png')}}" class="h-12 transition-transform duration-200 hover:scale-110" alt="Yonopedia Logo" />
-                <span class="self-center text-2xl font-semibold text-white transition-transform duration-200 hover:scale-105">Yonopedia</span>
+                <span class="self-center text-2xl font-semibold text-white transition-transform duration-200 hover:scale-105">Yonowatch</span>
             </a>
             <ul class="flex items-center space-x-4">
                 <li>
