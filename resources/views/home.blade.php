@@ -9,7 +9,59 @@
 
 <!-- Custom Style -->
 <style>
-  /* Animasi Best Seller */
+
+@media (max-width: 768px) {
+    #logo {
+        width: 70%; /* Lebih besar */
+        max-width: 250px; /* Maksimum diperbesar */
+    }
+
+    #brandName {
+        font-size: 2.5rem; /* Diperbesar */
+    }
+
+    #tagline {
+        font-size: 1.4rem; /* Diperbesar */
+    }
+
+    .heading-aesthetic {
+        font-size: 2.2rem; /* Diperbesar */
+    }
+
+    #productDisplay {
+        width: 100%;
+        max-width: 400px; 
+    }
+
+    #productInfo {
+        font-size: 1.2rem; 
+        padding: 15px; 
+    }
+
+    #prevBtn, #nextBtn {
+        font-size: 2rem; 
+        padding: 12px;
+    }
+
+    .content-wrapper {
+        padding: 30px 0; 
+    }
+
+    #bestSellerText {
+        margin-bottom: 20px;
+    }
+
+    .relative.py-16 {
+        padding-bottom: 30px; 
+    }
+
+    footer {
+        margin-top: -20px; 
+    }
+}
+
+
+
   .heading-aesthetic {
     font-family: '', ;
     font-size: 2rem;
@@ -20,7 +72,7 @@
     z-index: 10;
   }
 
-  /* Canvas untuk bintang */
+
   #starsCanvas {
     position: fixed;
     top: 0;
@@ -31,7 +83,7 @@
     pointer-events: none;
   }
 
-  /* Wrapper untuk kontras */
+
   .content-wrapper {
   position: relative;
   z-index: 5;
@@ -41,8 +93,42 @@
 
 #logo {
     opacity: 0;
-    filter: blur(10px); /* Tambahkan efek blur awal */
+    filter: blur(10px); 
     transform: scale(0.9);
+}
+
+
+#prevBtn, #nextBtn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+#prevBtn:hover, #nextBtn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    transform: translateY(-50%) scale(1.1);
+}
+
+#prevBtn {
+    left: 10px;
+}
+
+#nextBtn {
+    right: 10px;
+}
+
+/* Responsif untuk HP */
+@media (max-width: 768px) {
+    #prevBtn, #nextBtn {
+        padding: 8px;
+        font-size: 1.2rem;
+    }
 }
 
 
@@ -85,21 +171,16 @@ Katalog
     </div>
 </section>
 
-
-<!-- BEST SELLER PRODUCT SECTION -->
 <section class="relative py-16 text-center content-wrapper">
     <div class="container mx-auto px-4">
-        <!-- Animasi Heading -->
         <h2 class="heading-aesthetic font-bold mb-8" id="bestSellerText" style="color: #d45630;">OUR BEST SELLER</h2>
-
-        <!-- Produk Slider -->
         <div class="relative flex justify-center items-center">
             <button id="prevBtn" class="absolute left-100 text-white bg-black bg-opacity-50 p-3 rounded-full 
     hover:bg-opacity-70 hover:scale-110 hover:bg-gray-800 transition duration-300 ease-in-out">
     ❮
 </button>
 
-            <div id="productDisplay" class="relative w-3/4 max-w-2xl h-96 flex items-center justify-center overflow-hidden">
+            <div id="productDisplay" class="relative  w-3/4 max-w-sm flex items-center justify-center overflow-hidden">
                 <img id="productImage" class="w-full max-h-full object-contain fade active">
                 <div id="productInfo" class="absolute bottom-2 bg-black bg-opacity-50 px-6 py-3 rounded-lg">
                     <h3 class="text-2xl font-semibold text-white" id="productTitle" style="color: #ff5722;"></h3>
@@ -122,19 +203,16 @@ Katalog
 
 @php
     $activePage = 'home';
+    $noFooter= true;
 @endphp
-
-<!-- GSAP + Three.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    /** DATA PRODUK **/
     const products = [
-        { image: "{{ asset('images/jam2.png') }}", title: "Jacob Co Godfather", desc: "", price: "" },
-        { image: "{{ asset('images/jam1.png') }}", title: "Produk 2", desc: "", price: "" },
-        { image: "{{ asset('images/jam3.png') }}", title: "Produk 3", desc: "", price: "" }
+        { image: "{{ asset('images/jam2.png') }}", title: "Jacob & Co. Godfather Watch"},
+        { image: "{{ asset('images/jam1.png') }}", title: "AMD RTX 950 TI" },
     ];
 
     let currentIndex = 0;
@@ -148,8 +226,7 @@ document.addEventListener("DOMContentLoaded", function () {
         setTimeout(() => {
             productImage.src = products[currentIndex].image;
             productTitle.innerText = products[currentIndex].title;
-            productDesc.innerText = products[currentIndex].desc;
-            productPrice.innerText = products[currentIndex].price;
+
             productImage.classList.add("active"); // Tambahkan efek aktif
         }, 400);
     }
@@ -164,7 +241,7 @@ document.addEventListener("DOMContentLoaded", function () {
         updateProduct();
     });
 
-    updateProduct(); // Set produk pertama saat halaman dimuat
+    updateProduct(); 
     gsap.to("#catalogButton", { 
     opacity: 1, 
     y: 0, 
@@ -184,7 +261,7 @@ document.addEventListener("DOMContentLoaded", function () {
     gsap.timeline()
         .to("#logo", { 
             opacity: 1, 
-            filter: "blur(0px)", /* Hapus blur secara bertahap */
+            filter: "blur(0px)", 
 
             duration: 1.5, 
             ease: "power3.out" 
@@ -201,7 +278,6 @@ document.addEventListener("DOMContentLoaded", function () {
             duration: 1, 
             ease: "power2.out" 
         }, "-=0.8");
-    /** KONFIGURASI THREE.JS BINTANG 3D **/
     let scene, camera, renderer, stars, starGeo;
 
     function init() {
@@ -261,4 +337,3 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 </script>
-

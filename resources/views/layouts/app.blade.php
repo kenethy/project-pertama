@@ -18,10 +18,7 @@
 
 </head>
 
-<body class="bg-black flex flex-col min-h-screen overflow-x-hidden">
-
-    <!-- Navbar -->
-   <!-- Navbar -->
+<body class="bg-black flex flex-col min-h-screen overflow-x">
 <nav class="bg-gray-900 border-b border-gray-700 shadow-md">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="{{route ('home')}}" class="flex items-center space-x-3 rtl:space-x-reverse">
@@ -47,13 +44,12 @@
     </div>
 </nav>
 
-    <!-- Konten Utama -->
     <main class="flex-1 container mx-auto px-4 py-8 ">
         @yield('content')
     </main>
 
-    <!-- Footer Sticky -->
-   <!-- Footer -->
+   @if (!isset($noFooter) || !$noFooter)
+
 <footer class="bg-gray-900 border-b shadow-md w-full py-6 mt-auto">
     <div class="max-w-screen-xl mx-auto px-4">
         <div class="sm:flex sm:items-center sm:justify-between">
@@ -80,6 +76,7 @@
         </p>
     </div>
 </footer>
+@endif
 
 
 </body>

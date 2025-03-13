@@ -10,17 +10,14 @@
 
 <div x-data="catalogApp()" class="min-h-screen">
 
-  <!-- Tombol Toggle Sidebar untuk Mobile -->
   <div class="p-4">
       <button @click="sidebarOpen = !sidebarOpen" class="bg-blue-500 text-white p-2 rounded focus:outline-none">
           <template x-if="sidebarOpen">
-              <!-- Close Icon -->
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
               </svg>
           </template>
           <template x-if="!sidebarOpen">
-              <!-- Hamburger Menu Icon -->
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
@@ -28,9 +25,7 @@
       </button>
   </div>
   
-  <!-- Layout dengan Sidebar & Grid -->
   <div class="flex flex-col md:flex-row">
-    <!-- Sidebar Kategori (dapat ditutup dan dibuka) -->
     <aside x-show="sidebarOpen" 
     x-transition:enter="transition ease-out duration-300"
     x-transition:enter-start="opacity-0 transform -translate-x-full"
@@ -54,7 +49,6 @@
   </aside>
   
 
-    <!-- Grid Produk -->
     
     <main :class="sidebarOpen ? 'md:w-3/4' : 'md:w-full'" class="transition-all duration-300 p-4">
         <h2 class="text-xl text-white font-bold mb-4" x-text="'Produk ' + activeCategory"></h2>
@@ -64,16 +58,12 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <template x-for="product in filteredProducts" :key="product.id">
                 <div class="bg-gray-800 rounded shadow p-4 relative">
-                    <!-- Gambar Produk: klik untuk detail -->
                     <img :src="product.image" alt="" class="w-full h-70 object-cover rounded cursor-pointer" @click="openDetail(product)">
                     
-                    <!-- Nama Produk -->
                     <h3 class="mt-2 text-lg lg:text-xl font-bold text-white" x-text="product.name"></h3>
                     
-                    <!-- Harga Produk -->
                     <p class="mt-1 text-lg text-gray-300" x-text="product.price"></p>
                     
-                    <!-- Tombol Add to Cart -->
                     <button @click="addToCart(product, $event)"   class="mt-2 bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded transition-all duration-300 transform hover:scale-105 hover:shadow-lg active:scale-95">
                         Add to Cart
                     </button>
@@ -88,29 +78,24 @@
 
 
 
- <!-- Modal Pop-Up Detail Produk -->
 <div x-show="detailModal" x-transition.opacity.scale.75 class="fixed inset-0 flex items-center justify-center z-50 backdrop-blur-sm bg-opacity-50">
   <div @click.away="detailModal = false" 
        class="bg-gray-800 p-6 rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto relative transform transition-all duration-300 ease-out scale-95">
     
-    <!-- Tombol Close -->
     <button @click="detailModal = false" class="absolute top-3 right-3 text-gray-500 hover:text-red-500 text-2xl transition duration-200">
       &times;
     </button>
     
-    <!-- Gambar Produk -->
     <div class="relative w-full h-60 rounded-lg overflow-hidden shadow-md">
       <img :src="selectedProduct.image" alt="" class="w-full h-full object-cover transition duration-300 hover:scale-105">
     </div>
 
-    <!-- Informasi Produk -->
     <div class="mt-4">
       <h2 class="font-extrabold text-xl text-gray-300" x-text="selectedProduct.name"></h2>
       <p class="mt-2 text-gray-400 text-sm leading-relaxed" x-text="selectedProduct.description"></p>
       <p class="mt-3 font-semibold text-lg text-white" x-text="selectedProduct.price"></p>
     </div>
 
-    <!-- Tombol Add to Cart -->
     <button @click="addToCart(selectedProduct)" 
             class="mt-6 bg-blue-500 hover:bg-blue-600 text-white py-3 px-6 rounded-lg w-full font-semibold shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1">
       + Tambah ke Keranjang
@@ -120,7 +105,6 @@
 
   
 
-  <!-- Floating Cart Icon dengan Toggle Popup via Click -->
   <div class="fixed bottom-4 right-4 z-50 cart-icon">
     <button @click="cartOpen = !cartOpen" class="relative bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full shadow-lg focus:outline-none">
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -132,7 +116,6 @@
             x-text="cartCount"></span>
     </button>
 
-    <!-- Popup Cart: tampil di atas ikon saat cartOpen true -->
     <div x-show="cartOpen" x-cloak x-transition class="absolute bottom-full mb-2 right-0 w-64 bg-white rounded shadow-lg p-4">
       <template x-if="cart.length === 0">
         <p class="text-gray-600 text-sm">Keranjang masih kosong.</p>
@@ -148,7 +131,6 @@
           <button @click="removeFromCart(index)" class="text-red-500 text-xs">Hapus</button>
         </div>
       </template>
-      <!-- Form Checkout: data cart akan dikirim ke route 'checkout' -->
       <form id="checkoutForm" action="{{ route('checkout') }}" method="POST" x-ref="checkoutForm" class="mt-4">
         @csrf
         <input type="hidden" name="cartData" x-ref="cartData">
@@ -168,24 +150,21 @@
 </div>
 
 <style>
-    /* Override warna latar belakang */
     body {
-        background-color: #111; /* Ganti dengan warna yang diinginkan */
+        background-color: #111; 
     }
 
-    /* Override warna tombol */
+ 
     .bg-blue-500 {
-        background-color: #ff5722 !important; /* Ganti warna tombol */
+        background-color: #ff5722 !important; 
     }
 
-    /* Override sidebar agar tidak terlihat saat mobile */
     @media (max-width: 768px) {
         aside {
-            background-color: rgba(0, 0, 0, 0.8); /* Contoh mengubah warna sidebar */
+            background-color: rgba(0, 0, 0, 0.8);
         }
     }
 
-    /* Sesuaikan warna teks produk */
     .text-gray-300 {
         color: #ddd !important;
     }
@@ -197,7 +176,6 @@
     75% { transform: translateX(-5px); }
 }
 
-/* Tambahkan class ini ke elemen yang ingin digoyangkan */
 .shake {
     animation: shake 0.3s ease-in-out;
 }
@@ -205,20 +183,16 @@
 </style>
 
 
-<!-- Script Alpine.js untuk logika katalog -->
 <script>
 function catalogApp() {
   return {
-    // Sidebar toggle state
     sidebarOpen: true,
     
-    // List kategori
     categories: ['Rolex', 'Vacheron', 'Omega','Patek Philippe'],
     activeCategory: 'Rolex',
     searchQuery: '',
 
     
-    // Data produk statis
     products: [
       {
         id: 1,
@@ -385,17 +359,14 @@ function catalogApp() {
   }
 
     ],
-    // Data keranjang: sekarang menyimpan item sebagai objek dengan properti 'quantity'
     cart: [],
     cartCount: 0,
     cartOpen: false,
     
-    // Modal detail produk
     detailModal: false,
     selectedProduct: {},
     searchQuery: '',
     
-    // Filter produk berdasarkan kategori aktif
     get filteredProducts() {
       return this.products.filter(product => {
           let matchesCategory = product.category === this.activeCategory;
@@ -404,7 +375,6 @@ function catalogApp() {
       });
     },
     
-    // Method untuk menambahkan produk ke keranjang dengan penggabungan produk yang sama
     addToCart(product, event = null) {
     let existing = this.cart.find(item => item.id === product.id);
     if (existing) {
@@ -414,17 +384,14 @@ function catalogApp() {
         newItem.quantity = 1;
         this.cart.push(newItem);
     }
-    // Hitung total jumlah item dalam keranjang
     this.cartCount = this.cart.reduce((acc, item) => acc + item.quantity, 0);
     
-    // 🔹 Tambahkan efek goyang pada ikon keranjang
     let cartIcon = document.querySelector('.cart-icon');
     cartIcon.classList.add('shake');
     setTimeout(() => {
         cartIcon.classList.remove('shake');
-    }, 300); // Hapus class setelah animasi selesai (0.3 detik)
+    }, 300); 
 
-    // 🔹 Animasi produk terbang ke keranjang
     if (event) {
         let productContainer = event.target.closest('div');
         let imageEl = productContainer.querySelector('img');
@@ -456,7 +423,6 @@ function catalogApp() {
     }
 },
     
-    // Method untuk menghapus produk dari keranjang: jika quantity > 1, dikurangi satu; jika sama dengan 1, hapus item tersebut
     removeFromCart(index) {
       let item = this.cart[index];
       if (item.quantity > 1) {
@@ -467,18 +433,20 @@ function catalogApp() {
       this.cartCount = this.cart.reduce((acc, item) => acc + item.quantity, 0);
     },
     
-    // Method untuk membuka modal detail produk
     openDetail(product) {
       this.selectedProduct = product;
       this.detailModal = true;
     },
 
-     // Method Checkout: kirim data cart ke blade checkout
      checkout() {
-      let data = JSON.stringify(this.cart);
-      this.$refs.cartData.value = data;
-      this.$refs.checkoutForm.submit();
-    }
+  if (this.cartCount === 0) {
+    alert("Keranjang masih kosong. Tambahkan barang terlebih dahulu sebelum checkout.");
+    return;
+  }
+  let data = JSON.stringify(this.cart);
+  this.$refs.cartData.value = data;
+  this.$refs.checkoutForm.submit();
+}
   }
 
 }
