@@ -7,7 +7,7 @@ Route::get('/', function () {
 
 })->name('home');
 
-Route::get('/etalase', function()
+Route::get('/katalog', function()
 {
     return view('etalase');
 })->name('etalase');

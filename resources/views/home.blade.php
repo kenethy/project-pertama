@@ -77,6 +77,11 @@
         <p id="tagline" class="mt-2 text-lg text-gray-300 italic opacity-0 translate-y-10">
             Your Only Watch Retailer
         </p>
+
+        <a href="{{route('etalase')}}" id="catalogButton" class="mt-6 inline-block bg-[#d45630] text-white px-6 py-3 rounded-lg font-semibold text-lg 
+   transition-transform transform hover:scale-105 hover:bg-[#b64529] opacity-0">
+Katalog
+</a>
     </div>
 </section>
 
@@ -127,7 +132,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     /** DATA PRODUK **/
     const products = [
-        { image: "{{ asset('images/jam2.png') }}", title: "Produk 1", desc: "", price: "" },
+        { image: "{{ asset('images/jam2.png') }}", title: "Jacob Co Godfather", desc: "", price: "" },
         { image: "{{ asset('images/jam1.png') }}", title: "Produk 2", desc: "", price: "" },
         { image: "{{ asset('images/jam3.png') }}", title: "Produk 3", desc: "", price: "" }
     ];
@@ -160,6 +165,13 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     updateProduct(); // Set produk pertama saat halaman dimuat
+    gsap.to("#catalogButton", { 
+    opacity: 1, 
+    y: 0, 
+    duration: 1, 
+    ease: "power2.out", 
+    delay: 1.2 
+});
 
 
     gsap.to("#bestSellerText", {

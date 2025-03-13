@@ -55,8 +55,12 @@
   
 
     <!-- Grid Produk -->
+    
     <main :class="sidebarOpen ? 'md:w-3/4' : 'md:w-full'" class="transition-all duration-300 p-4">
         <h2 class="text-xl text-white font-bold mb-4" x-text="'Produk ' + activeCategory"></h2>
+        <div class="mb-4 w-40">
+          <input type="text" placeholder="Search products..." x-model="searchQuery" class="w-full p-2 rounded border border-gray-600 bg-gray-700 text-white" />
+      </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <template x-for="product in filteredProducts" :key="product.id">
                 <div class="bg-gray-800 rounded shadow p-4 relative">
@@ -84,9 +88,10 @@
 
 
 
-  <!-- Modal Pop-Up Detail Produk -->
+ <!-- Modal Pop-Up Detail Produk -->
 <div x-show="detailModal" x-transition.opacity.scale.75 class="fixed inset-0 flex items-center justify-center z-50 backdrop-blur-sm bg-opacity-50">
-  <div @click.away="detailModal = false" class="bg-gray-800 p-6 rounded-2xl shadow-2xl max-w-md w-full relative transform transition-all duration-300 ease-out scale-95">
+  <div @click.away="detailModal = false" 
+       class="bg-gray-800 p-6 rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto relative transform transition-all duration-300 ease-out scale-95">
     
     <!-- Tombol Close -->
     <button @click="detailModal = false" class="absolute top-3 right-3 text-gray-500 hover:text-red-500 text-2xl transition duration-200">
@@ -94,19 +99,20 @@
     </button>
     
     <!-- Gambar Produk -->
-    <div class="relative w-full h-full rounded-lg overflow-hidden shadow-md">
+    <div class="relative w-full h-60 rounded-lg overflow-hidden shadow-md">
       <img :src="selectedProduct.image" alt="" class="w-full h-full object-cover transition duration-300 hover:scale-105">
     </div>
 
     <!-- Informasi Produk -->
     <div class="mt-4">
-      <h2 class="font-extrabold text-xl text-gray-800" x-text="selectedProduct.name"></h2>
-      <p class="mt-2 text-gray-600 text-sm leading-relaxed" x-text="selectedProduct.description"></p>
-      <p class="mt-3 font-semibold text-lg text-white" x-text="(selectedProduct.price)"></p>
+      <h2 class="font-extrabold text-xl text-gray-300" x-text="selectedProduct.name"></h2>
+      <p class="mt-2 text-gray-400 text-sm leading-relaxed" x-text="selectedProduct.description"></p>
+      <p class="mt-3 font-semibold text-lg text-white" x-text="selectedProduct.price"></p>
     </div>
 
     <!-- Tombol Add to Cart -->
-    <button @click="addToCart(selectedProduct)" class="mt-6 bg-blue-500 hover:bg-blue-600 text-white py-3 px-6 rounded-lg w-full font-semibold shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1">
+    <button @click="addToCart(selectedProduct)" 
+            class="mt-6 bg-blue-500 hover:bg-blue-600 text-white py-3 px-6 rounded-lg w-full font-semibold shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1">
       + Tambah ke Keranjang
     </button>
   </div>
@@ -127,7 +133,7 @@
     </button>
 
     <!-- Popup Cart: tampil di atas ikon saat cartOpen true -->
-    <div x-show="cartOpen" x-transition class="absolute bottom-full mb-2 right-0 w-64 bg-white rounded shadow-lg p-4">
+    <div x-show="cartOpen" x-cloak x-transition class="absolute bottom-full mb-2 right-0 w-64 bg-white rounded shadow-lg p-4">
       <template x-if="cart.length === 0">
         <p class="text-gray-600 text-sm">Keranjang masih kosong.</p>
       </template>
@@ -207,8 +213,10 @@ function catalogApp() {
     sidebarOpen: true,
     
     // List kategori
-    categories: ['Luxury Watch', 'Super Luxury Watch'],
-    activeCategory: 'Luxury Watch',
+    categories: ['Rolex', 'Vacheron', 'Omega','Patek Philippe'],
+    activeCategory: 'Rolex',
+    searchQuery: '',
+
     
     // Data produk statis
     products: [
@@ -218,80 +226,164 @@ function catalogApp() {
         price: 'Rp 750.000.000',
         image: 'https://media.rolex.com/image/upload/q_auto:eco/f_auto/t_v7-majesty/c_limit,w_3840/v1/catalogue/2024/upright-c/m126500ln-0001',
         description: 'The Rolex Daytona is an iconic chronograph watch known for its high precision and timeless design.',
-        category: 'Luxury Watch'
+        category: 'Rolex'
       },
       {
-        id: 2,
-        name: 'Patek Philippe Nautilus',
-        price: 'Rp 1.200.000.000',
-        image: 'https://w7.pngwing.com/pngs/363/98/png-transparent-audemars-piguet-royal-oak-offshore-chronograph-watch-audemars-piguet-royal-oak-selfwinding-watch-watch-accessory-accessories-steel.png',
-        description: 'The Patek Philippe Nautilus is a legendary luxury sports watch with an elegant and sophisticated design.',
-        category: 'Super Luxury Watch'
-      },
-      {
-        id: 3,
-        name: 'Audemars Piguet Royal Oak',
-        price: 'Rp 900.000.000',
-        image: 'https://via.placeholder.com/300x200',
-        description: 'The Audemars Piguet Royal Oak features an iconic octagonal bezel and an ultra-refined high-end design.',
-        category: 'Luxury Watch'
-      },
-      {
-        id: 4,
-        name: 'Richard Mille RM 11-03',
-        price: 'Rp 2.500.000.000',
-        image: 'https://via.placeholder.com/300x200',
-        description: 'The Richard Mille RM 11-03 is an ultra-luxury watch with cutting-edge technology and high-tech materials.',
-        category: 'Super Luxury Watch'
-      },
-      {
-        id: 5,
-        name: 'Vacheron Constantin Overseas',
-        price: 'Rp 800.000.000',
-        image: 'https://via.placeholder.com/300x200',
-        description: 'The Vacheron Constantin Overseas is a masterpiece of fine watchmaking with exceptional precision.',
-        category: 'Luxury Watch'
-      },
-      {
-        id: 6,
-        name: 'Hublot Big Bang Unico',
-        price: 'Rp 500.000.000',
-        image: 'https://via.placeholder.com/300x200',
-        description: 'The Hublot Big Bang Unico stands out with its bold, futuristic design and innovative movement.',
-        category: 'Luxury Watch'
-      },
-      {
-        id: 7,
-        name: 'Omega Speedmaster Moonwatch',
-        price: 'Rp 350.000.000',
-        image: 'https://via.placeholder.com/300x200',
-        description: 'The Omega Speedmaster Moonwatch is a legendary timepiece, famous for being worn on the Moon.',
-        category: 'Luxury Watch'
-      },
-      {
-        id: 8,
-        name: 'Jaeger-LeCoultre Reverso',
-        price: 'Rp 450.000.000',
-        image: 'https://via.placeholder.com/300x200',
-        description: 'The Jaeger-LeCoultre Reverso is a classic watch featuring a unique reversible case for elegance and versatility.',
-        category: 'Luxury Watch'
-      },
-      {
-        id: 9,
-        name: 'Breguet Classique 5177',
-        price: 'Rp 1.000.000.000',
-        image: 'https://via.placeholder.com/300x200',
-        description: 'The Breguet Classique 5177 showcases timeless craftsmanship with a refined and elegant design.',
-        category: 'Luxury Watch'
-      },
-      {
-        id: 10,
-        name: 'A. Lange & Söhne Lange 1',
-        price: 'Rp 1.100.000.000',
-        image: 'https://via.placeholder.com/300x200',
-        description: 'The A. Lange & Söhne Lange 1 is a symbol of German precision and classic watchmaking artistry.',
-        category: 'Super Luxury Watch'
-      }
+    id: 2,
+    name: 'Rolex Submariner Date',
+    price: 'Rp 10,250,000',
+    image: 'https://media.rolex.com/image/upload/q_auto:eco/f_auto/t_v7-majesty/c_limit,w_3840/v1/catalogue/2024/upright-c/m126610ln-0001',
+    description: 'The Rolex Submariner is renowned for its robustness and association with diving, featuring a sleek design and exceptional functionality.',
+    category: 'Rolex'
+  },
+
+  {
+    id: 3,
+    name: 'Rolex GMT-Master II',
+    price: 'Rp 14,000,000',
+    image: 'https://media.rolex.com/image/upload/q_auto:eco/f_auto/t_v7-majesty/c_limit,w_3840/v1/catalogue/2024/upright-c/m126333-0010',
+    description: 'The Rolex GMT-Master II is designed for international pilots and travelers, offering the ability to display multiple time zones.',
+    category: 'Rolex'
+  },
+  {
+    id: 4,
+    name: 'Rolex Datejust 41',
+    price: 'Rp 12,000,000',
+    image: 'https://media.rolex.com/image/upload/q_auto:eco/f_auto/t_v7-majesty/c_limit,w_3840/v1/catalogue/2024/upright-c/m126333-0010',
+    description: 'The Rolex Datejust 41 is a classic timepiece that combines elegance with precision, featuring a sleek design and date function.',
+    category: 'Rolex'
+  },
+  {
+    id: 5,
+    name: 'Rolex Oyster Perpetual',
+    price: 'Rp 20,000,000',
+    image: 'https://media.rolex.com/image/upload/q_auto:eco/f_auto/t_v7-majesty/c_limit,w_3840/v1/catalogue/2024/upright-c/m124300-0003',
+    description: 'The Rolex Yacht-Master is a luxury watch designed for sailing enthusiasts, combining functionality with sophisticated style.',
+    category: 'Rolex'
+  },
+
+  {
+    id: 6,
+    name: 'Vacheron Constantin Overseas',
+    price: 'Rp 300,000,000',
+    image: 'https://img.chrono24.com/images/uhren/38371063-ijpz9il29eqg0u7ea7d1gfeu-ExtraLarge.jpg',
+    description: 'The Vacheron Constantin Overseas is a high-end sports watch known for its robustness and elegance, featuring a sleek design and exceptional functionality.',
+    category: 'Vacheron'
+  },
+  {
+    id: 7,
+    name: 'Vacheron Constantin Patrimony',
+    price: 'Rp 350,000,000',
+    image: 'https://img.chrono24.com/images/uhren/36271668-kjhvbjmkylf1g0zrt64uiefq-ExtraLarge.jpg',
+    description: 'The Vacheron Constantin Patrimony is renowned for its simple and elegant design, featuring an ultra-thin case inspired by the company\'s 1950s models.',
+    category: 'Vacheron'
+  },
+  {
+    id: 8,
+    name: 'Vacheron Constantin Métiers d\'Art',
+    price: 'Rp 500,000,000',
+    image: 'https://www.vacheron-constantin.com/dam/ric-import/vac/abcf/5198/2191395.jpeg.transform.vacrect.jpg',
+    description: 'The Vacheron Constantin Métiers d\'Art collection showcases intricate craftsmanship, featuring miniature reproductions of primitive art masks and designs inspired by M.C. Escher.',
+    category: 'Vacheron'
+  },
+  {
+    id: 9,
+    name: 'Vacheron Constantin Historiques American 1921',
+    price: 'Rp 400,000,000',
+    image: 'https://img.chrono24.com/images/uhren/38140648-si084iwhu2s3xbxfmz9uc9at-ExtraLarge.jpg',
+    description: 'The Vacheron Constantin Historiques American 1921 is a vintage-inspired watch featuring a unique diagonal dial and crown at the 1 o\'clock position, reflecting the bold designs of the Roaring Twenties.',
+    category: 'Vacheron'
+  },
+  {
+    id: 10,
+    name: 'Vacheron Constantin Traditionnelle',
+    price: 'Rp 320,000,000',
+    image: 'https://img.chrono24.com/images/uhren/37546861-a01a7oavxgham7ejfw4xb99z-ExtraLarge.jpg',
+    description: 'The Vacheron Constantin Traditionnelle is a classic timepiece that combines traditional watchmaking techniques with modern aesthetics, featuring a sleek design and precise movement.',
+    category: 'Vacheron'
+  },
+
+  {
+    id: 11,
+    name: 'Omega Speedmaster Moonwatch',
+    price: 'Rp 150.000.000',
+    image: 'https://flecto.id/_next/image?url=https%3A%2F%2Fflecto.id%2Fpublic%2Fproducts%2F54%2F5154%2Fimg_9123.ycvdFI.1722586022.jpeg&w=1200&q=75',
+    description: 'The Omega Speedmaster Moonwatch is an iconic timepiece that was worn on the moon. Its precise chronograph and classic design make it a legendary watch.',
+    category: 'Omega'
+  },
+  {
+    id: 12,
+    name: 'Omega Seamaster Diver 300M',
+    price: 'Rp 100.000.000',
+    image: 'https://www.omegawatches.com/media/catalog/product/o/m/omega-seamaster-diver-300m-co-axial-master-chronometer-42-mm-21030422003001-5c4934.png?w=2000',
+    description: 'The Omega Seamaster Diver 300M is a professional-grade diving watch with a helium escape valve and a ceramic bezel, designed for adventure under the sea.',
+    category: 'Omega'
+  },
+  {
+    id: 13,
+    name: 'Omega Constellation Co-Axial',
+    price: 'Rp 120.000.000',
+    image: 'https://img.chrono24.com/images/uhren/36542965-1kh7115uu3zddy1tj7oj27t9-ExtraLarge.jpg',
+    description: 'The Omega Constellation is a luxury dress watch known for its signature claws and half-moon facets, combining elegance with superior watchmaking technology.',
+    category: 'Omega'
+  },
+  {
+    id: 14,
+    name: 'Omega De Ville Prestige',
+    price: 'Rp 90.000.000',
+    image: 'https://images-cdn.ubuy.co.id/654200d9c4a38a4dfa564ecd-omega-deville-prestige-co-axial-mens.jpg',
+    description: 'The Omega De Ville Prestige is a sophisticated and timeless watch that embodies elegance with its classic design and exceptional craftsmanship.',
+    category: 'Omega'
+  },
+  {
+    id: 15,
+    name: 'Omega Railmaster',
+    price: 'Rp 80.000.000',
+    image: 'https://images.tokopedia.net/img/cache/700/VqbcmM/2022/3/21/ede1a8ec-d94d-4702-8c38-1476f0421791.png',
+    description: 'The Omega Railmaster is a stylish yet functional watch designed for anti-magnetic resistance, making it a perfect choice for professionals working around strong magnetic fields.',
+    category: 'Omega'
+  },
+  {
+    id: 16,
+    name: 'Patek Philippe Nautilus',
+    price: 'Rp 1.200.000.000',
+    image: 'https://omniluxe.id/cdn/shop/files/Patek-Philippe-Nautilus-5711-1R-_1_d0ba3623-9f41-4540-8aa3-ff0549cb3347_1800x.jpg?v=1736928207',
+    description: 'The Patek Philippe Nautilus is an iconic luxury sports watch with an elegant yet sporty design, featuring a distinctive porthole-shaped case.',
+    category: 'Patek Philippe'
+  },
+  {
+    id: 17,
+    name: 'Patek Philippe Aquanaut',
+    price: 'Rp 950.000.000',
+    image: 'https://images-cdn.ubuy.co.id/636a523526fbee5de3249992-patek-philippe-aquanaut-automatic-black.jpg',
+    description: 'The Patek Philippe Aquanaut is a modern and youthful timepiece, featuring a rounded octagonal case and a tropical strap made from composite material.',
+    category: 'Patek Philippe'
+  },
+  {
+    id: 18,
+    name: 'Patek Philippe Grand',
+    price: 'Rp 10.000.000.000',
+    image: 'https://img.chrono24.com/images/uhren/34333873-44h4zs9mq814wl0t39a4m82o-ExtraLarge.jpg',
+    description: 'The Patek Philippe Grand Complications represents the pinnacle of watchmaking artistry, featuring perpetual calendar, minute repeater, and celestial displays.',
+    category: 'Patek Philippe'
+  },
+  {
+    id: 19,
+    name: 'Patek Philippe Calatrava',
+    price: 'Rp 850.000.000',
+    image: 'https://images-cdn.ubuy.co.id/65e0f37b66a22211112baef8-patek-philippe-calatrava-5120j-18k.jpg',
+    description: 'The Patek Philippe Calatrava is a symbol of timeless elegance, embodying pure lines and classic design that has defined dress watches for decades.',
+    category: 'Patek Philippe'
+  },
+  {
+    id: 20,
+    name: 'Patek Philippe Annual',
+    price: 'Rp 1.500.000.000',
+    image: 'https://idwx.co/cdn/shop/products/PatekCalatrava.jpg?v=1651043106',
+    description: 'The Patek Philippe Annual Calendar is a sophisticated watch that automatically adjusts for months with 30 and 31 days, requiring only one manual correction per year.',
+    category: 'Patek Philippe'
+  }
+
     ],
     // Data keranjang: sekarang menyimpan item sebagai objek dengan properti 'quantity'
     cart: [],
@@ -301,10 +393,15 @@ function catalogApp() {
     // Modal detail produk
     detailModal: false,
     selectedProduct: {},
+    searchQuery: '',
     
     // Filter produk berdasarkan kategori aktif
     get filteredProducts() {
-      return this.products.filter(product => product.category === this.activeCategory);
+      return this.products.filter(product => {
+          let matchesCategory = product.category === this.activeCategory;
+          let matchesSearch = product.name.toLowerCase().includes(this.searchQuery.toLowerCase());
+          return matchesCategory && matchesSearch;
+      });
     },
     
     // Method untuk menambahkan produk ke keranjang dengan penggabungan produk yang sama

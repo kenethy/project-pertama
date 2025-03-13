@@ -18,7 +18,7 @@
 
 </head>
 
-<body class="bg-black flex flex-col min-h-screen">
+<body class="bg-black flex flex-col min-h-screen overflow-x-hidden">
 
     <!-- Navbar -->
    <!-- Navbar -->
